@@ -23,6 +23,13 @@
             height: 50px;
             min-width: 50px;
         }
+        td.puzzle-cell-off {
+            background: #e00 !important;
+        }
+        td.text-success {
+            background-color: #28a745;
+            color: rgb(33, 37, 41) !important;
+        }
     `);
 
 })();
