@@ -13,6 +13,9 @@
     'use strict';
 
     GM_addStyle(`
+        div {
+            min-width: max-content;
+        }
         td.left-numbers {
             white-space: nowrap;
         }
