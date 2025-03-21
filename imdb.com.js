@@ -12,8 +12,62 @@
 
 (function () {
     'use strict';
-    addStreamingLink("#");
+    let streamingURL = getStreamingURL();
+    if (streamingURL != null) addStreamingLink(streamingURL);
 })();
+
+function parseTitleID(titleURL) {
+    let regexMatch = titleURL.match("(tt\\d+)");
+    return regexMatch ? regexMatch[1] : null;
+}
+
+function parseSeasonEpisode(seasonEpisode) {
+    let regexMatch = seasonEpisode.match("S(\\d+)\\.E(\\d+)");
+    return regexMatch ? [regexMatch[1], regexMatch[2]] : null;
+}
+
+/* There are no identifiers for this particular element, so... */
+function getTitleType() {
+    return document
+        .querySelector("[data-testid='hero__pageTitle']")
+        .parentElement
+        .lastChild
+        .firstChild
+        .textContent;
+}
+
+function getEpisodeURL() {
+    // Episodes have separate ids, so we have to find the show first
+    let seriesURL = document
+        .querySelector("[data-testid='hero-title-block__series-link']")
+        .href;
+    let episodeNumber = document
+        .querySelector("[data-testid='hero-subnav-bar-season-episode-numbers-section']")
+        .textContent;
+
+    let titleID = parseTitleID(seriesURL);
+    let seasonEpisode = parseSeasonEpisode(episodeNumber);
+
+    if (!titleID || !seasonEpisode) return null;
+    return `https://vidsrc.xyz/embed/tv?imdb=${titleID}&season=${seasonEpisode[0]}&episode=${seasonEpisode[1]}`;
+}
+
+function getStreamingURL() {
+    let titleID = parseTitleID(location.pathname);
+    if (!titleID) return null;
+
+    let titleType = getTitleType();
+    if (!isNaN(Number(titleType))) {
+        // There is no type, so this title is a movie
+        return `https://vidsrc.xyz/embed/movie?imdb=${titleID}`;
+    } else if (titleType.startsWith("TV")) {
+        // Title type is "TV Series"
+        return `https://vidsrc.xyz/embed/tv?imdb=${titleID}`;
+    } else if (titleType.startsWith("Episode")) {
+        // Title type is "Episode aired ..." or "Episode airs ..."
+        return getEpisodeURL();
+    } else return null;
+}
 
 function addStreamingLink(streamingURL) {
     if (!streamingURL) return;
