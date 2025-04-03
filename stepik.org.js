@@ -17,13 +17,13 @@ const LONGEST_STREAK = null;
 const PROBLEMS_SOLVED = null;
 const ACTIVITY = [
     /* [WEEK_OF_YEAR (1-53), DAY_OF_WEEK (1-7), ACTIVITY_LEVEL (1-5)] */
-    // [1, 1, 2], // Week 1, Monday
-    // [1, 2, 3], // Week 1, Tuesday
-    // [1, 3, 4], // Week 1, Wednesday
-    // [1, 4, 5], // Week 1, Thursday
-    // [1, 5, 4], // Week 1, Friday
-    // [1, 6, 3], // Week 1, Saturday
-    // [1, 7, 2], // Week 1, Sunday
+    // [1, 1, 2], // Week 1, Monday, 1-4 problems
+    // [1, 2, 3], // Week 1, Tuesday, 5-9 problems
+    // [1, 3, 4], // Week 1, Wednesday, 10-24 problems
+    // [1, 4, 5], // Week 1, Thursday, 25+ problems
+    // [1, 5, 4], // Week 1, Friday, 10-24 problems
+    // [1, 6, 3], // Week 1, Saturday, 5-9 problems
+    // [1, 7, 2], // Week 1, Sunday, 1-4 problems
 ];
 
 /* End of user input */
