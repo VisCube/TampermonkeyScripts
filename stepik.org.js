@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         stepik.org
 // @namespace    https://github.com/VisCube/TampermonkeyScripts
-// @version      2025-03-25
+// @version      2025-04-03
 // @description  Modifies activity statistics on the profile page
 // @author       VisCube
 // @match        https://stepik.org/users/*/profile
@@ -44,6 +44,9 @@ const ACTIVITY = [
             let oldRect = element.querySelector(`.w_${weekFormatted} g:nth-child(${day}) rect`);
 
             let newRect = oldRect.cloneNode(true);
+            for (let i = 1; i <= 5; i++) {
+                newRect.classList.remove(`q${i}`)
+            }
             newRect.classList.add(`q${q}`);
 
             oldRect.after(newRect);
